@@ -1,6 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MainLayout } from "../shared/layout/MainLayout";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { LoginPage } from "../features/auth/pages/LoginPage";
+import { RegisterPage } from "../features/auth/pages/RegisterPage";
+import { UnauthorizedPage } from "../features/auth/pages/UnauthorizedPage";
+import { CatalogoPage } from "../features/productos/pages/CatalogoPage";
 
 function PlaceholderScreen({ title }: { title: string }) {
   return (
@@ -16,14 +20,11 @@ export function AppRouter() {
       <Routes>
         <Route element={<MainLayout />}>
           {/* Rutas públicas */}
-          <Route path="/" element={<PlaceholderScreen title="Catálogo" />} />
-          <Route path="/login" element={<PlaceholderScreen title="Iniciar Sesión" />} />
-          <Route path="/register" element={<PlaceholderScreen title="Registro" />} />
+          <Route path="/" element={<CatalogoPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/carrito" element={<PlaceholderScreen title="Carrito" />} />
-          <Route
-            path="/unauthorized"
-            element={<PlaceholderScreen title="Sin permiso" />}
-          />
+          <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
           {/* Rutas protegidas con sesión (cliente o admin) */}
           <Route element={<ProtectedRoute />}>
