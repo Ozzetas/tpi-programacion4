@@ -5,6 +5,9 @@ import { LoginPage } from "../features/auth/pages/LoginPage";
 import { RegisterPage } from "../features/auth/pages/RegisterPage";
 import { UnauthorizedPage } from "../features/auth/pages/UnauthorizedPage";
 import { CatalogoPage } from "../features/productos/pages/CatalogoPage";
+import { CarritoPage } from "../features/pedidos/pages/CarritoPage";
+import { CheckoutPage } from "../features/pedidos/pages/CheckoutPage";
+import { MisPedidosPage } from "../features/pedidos/pages/MisPedidosPage";
 
 function PlaceholderScreen({ title }: { title: string }) {
   return (
@@ -23,16 +26,13 @@ export function AppRouter() {
           <Route path="/" element={<CatalogoPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/carrito" element={<PlaceholderScreen title="Carrito" />} />
+          <Route path="/carrito" element={<CarritoPage />} />
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
           {/* Rutas protegidas con sesión (cliente o admin) */}
           <Route element={<ProtectedRoute />}>
-            <Route path="/checkout" element={<PlaceholderScreen title="Checkout" />} />
-            <Route
-              path="/mis-pedidos"
-              element={<PlaceholderScreen title="Mis Pedidos" />}
-            />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/mis-pedidos" element={<MisPedidosPage />} />
           </Route>
 
           {/* Rutas exclusivas de administración */}
