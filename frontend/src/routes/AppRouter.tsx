@@ -1,21 +1,18 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { MainLayout } from "../shared/layout/MainLayout";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { LoginPage } from "../features/auth/pages/LoginPage";
 import { RegisterPage } from "../features/auth/pages/RegisterPage";
 import { UnauthorizedPage } from "../features/auth/pages/UnauthorizedPage";
 import { CatalogoPage } from "../features/productos/pages/CatalogoPage";
+import { AdminProductosPage } from "../features/productos/pages/AdminProductosPage";
+import { AdminCategoriasPage } from "../features/categorias/pages/AdminCategoriasPage";
+import { AdminUsuariosPage } from "../features/usuarios/pages/AdminUsuariosPage";
 import { CarritoPage } from "../features/pedidos/pages/CarritoPage";
 import { CheckoutPage } from "../features/pedidos/pages/CheckoutPage";
 import { MisPedidosPage } from "../features/pedidos/pages/MisPedidosPage";
-
-function PlaceholderScreen({ title }: { title: string }) {
-  return (
-    <div className="rounded-xl border border-slate-200 bg-white p-8 text-center">
-      <h1 className="text-xl font-bold text-slate-900">{title}</h1>
-    </div>
-  );
-}
+import { AdminResumenPage } from "../features/pedidos/pages/AdminResumenPage";
+import { AdminPedidosPage } from "../features/pedidos/pages/AdminPedidosPage";
 
 export function AppRouter() {
   return (
@@ -29,35 +26,26 @@ export function AppRouter() {
           <Route path="/carrito" element={<CarritoPage />} />
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
-          {/* Rutas protegidas con sesión (cliente o admin) */}
+          {/* Rutas protegidas con sesión (rol user o admin) */}
           <Route element={<ProtectedRoute />}>
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/mis-pedidos" element={<MisPedidosPage />} />
           </Route>
 
-          {/* Rutas exclusivas de administración */}
+          {/* Rutas exclusivas de administración (rol admin) */}
           <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-            <Route
-              path="/admin/resumen"
-              element={<PlaceholderScreen title="Resumen de Administración" />}
-            />
+            <Route path="/admin/resumen" element={<AdminResumenPage />} />
             <Route
               path="/admin/categorias"
-              element={<PlaceholderScreen title="ABM Categorías" />}
+              element={<AdminCategoriasPage />}
             />
-            <Route
-              path="/admin/productos"
-              element={<PlaceholderScreen title="ABM Productos" />}
-            />
-            <Route
-              path="/admin/pedidos"
-              element={<PlaceholderScreen title="Gestión de Pedidos" />}
-            />
-            <Route
-              path="/admin/usuarios"
-              element={<PlaceholderScreen title="Gestión de Usuarios" />}
-            />
+            <Route path="/admin/productos" element={<AdminProductosPage />} />
+            <Route path="/admin/pedidos" element={<AdminPedidosPage />} />
+            <Route path="/admin/usuarios" element={<AdminUsuariosPage />} />
           </Route>
+
+          {/* Redirección por defecto para rutas inexistentes */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </BrowserRouter>
